@@ -1,0 +1,36 @@
+<form [formGroup]="formClient" (ngSubmit)="onSubmit(formClient)">
+  <div class="form-group fixMargin">
+    <label for="name">Nombre</label>
+    <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nombre del cliente a guardar">
+  </div>
+  <div class="form-group fixMargin">
+    <label for="apellido">Apellido</label>
+    <input type="text" class="form-control" formControlName="surname" id="Apellido" placeholder="Apellido del cliente a guardar">
+  </div>
+  <div class="form-group fixMargin">
+    <label for="edad">Edad</label>
+    <input type="number" class="form-control" formControlName="age" id="edad" placeholder="Edad del cliente a guardar">
+  </div>
+  <div class="form-group fixMargin">
+    <label for="edad">Fecha de Nacimiento</label>
+    <input type="date" class="form-control" id="edad" formControlName="birthdate" placeholder="Fecha de nacimiento del cliente al guardar">
+  </div>
+   <div class="content-btn-form btn-lg" >
+    <button type="submit" class="btn btn-primary" style="--bs-btn-font-size: 1.5rem;">Guardar Cliente</button>
+   </div>
+  
+  
+</form>
+
+<div class="content-btn-form btn-lg" >
+  <button type="submit" class="btn btn-primary" style="--bs-btn-font-size: 1.5rem;" (click)="getInfoNumeric()">toast</button>
+ </div>
+
+<section>
+  <div class="titleEstadist">Lista de Clientes</div>
+
+  <div class="content-result">
+    <span class="text-result">Promedio de las edades: {{this.getPromedio()}} </span>
+    <span class="text-result">Desviacion Estandar de las edades: {{ this.showDesvest()}}</span>
+  </div>
+</section>
