@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Cliente } from '../../models/cliente';
 import { ClientRestControllerService } from '../../services/client-rest-controller.service';
 import { Utils } from '../../shared/utils/utils';
@@ -11,9 +12,10 @@ import { Utils } from '../../shared/utils/utils';
 export class AnalisysClientLisComponent implements OnInit {
   public listClient: Cliente[] = [];
   public listAge: number[] = [];
-  constructor(private service: ClientRestControllerService) { }
+  constructor(private service: ClientRestControllerService, private ngxService: NgxUiLoaderService) { }
 
   async ngOnInit() {
+    await this.ngxService.start();
     await this.getlistDatabase();
   }
   
@@ -22,11 +24,15 @@ export class AnalisysClientLisComponent implements OnInit {
     this.listClient = [];
     this.listAge = []
     this.service.getListClients().subscribe(data => {
-      data.forEach((element: any) => {
+      data.forEach(async (element: any) => {
         console.log(element.payload.doc.data());
         const data = element.payload.doc.data()
         this.listClient.push(data);
         this.listAge.push(data.edad);
+        await this.ngxService.stop();
+       }, async error => {
+         console.log('error ', error)
+         await this.ngxService.stop();
        })
     })
   }

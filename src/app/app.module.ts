@@ -12,6 +12,13 @@ import { enviroment} from './core/configuration/enviroment';
 import {AngularFirestoreModule} from '@angular/fire/firestore'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AnalisysClientLisComponent } from './core/components/analisys-client-lis/analisys-client-lis.component'
+import { NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: 'red',
+  bgsSize: 70,
+  bgsType: SPINNER.ballSpin,
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +33,7 @@ import { AnalisysClientLisComponent } from './core/components/analisys-client-li
     AngularFireModule.initializeApp(enviroment.firebase),
     AngularFirestoreModule,
     RouterModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     BrowserAnimationsModule,
     ReactiveFormsModule,
   ],

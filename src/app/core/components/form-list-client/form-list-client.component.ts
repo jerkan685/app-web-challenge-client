@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { element } from 'protractor';
 import { Cliente } from '../../models/cliente';
 import { ClientRestControllerService } from '../../services/client-rest-controller.service';
@@ -13,9 +14,10 @@ import { Utils } from '../../shared/utils/utils';
 export class FormListClientComponent implements OnInit {
   public formClient: FormGroup
   public listAge: any[] = [];
-  constructor(private service: ClientRestControllerService) { }
+  constructor(private service: ClientRestControllerService, private ngxService: NgxUiLoaderService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.ngxService.start();
     this.formClient = new FormGroup({
       name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
@@ -23,9 +25,11 @@ export class FormListClientComponent implements OnInit {
       birthdate: new FormControl('', Validators.required)
     });
     this.getInfoNumeric();
+    
   }
 
-  onSubmit(form: FormGroup) {
+  async onSubmit(form: FormGroup) {
+    await this.ngxService.start();
     console.log('Valid?', form.valid); // true or false
     console.log('Name', form.value.name);
     console.log('surname', form.value.surname);
@@ -39,12 +43,14 @@ export class FormListClientComponent implements OnInit {
          birthdate: new Date(form.value.birthdate)
 
       }
-      this.service.saveClients(client).then(data => {
+      this.service.saveClients(client).then(async data => {
         console.log('Guardo clientes');
         alert('Cliente guardado con exito');
-      }, error => {
+        await this.ngxService.stop();
+      }, async error => {
         console.log('error ', error)
         alert('Error al guardar cliente')
+        await this.ngxService.stop();
       })
     }
     form.reset();
@@ -59,11 +65,12 @@ export class FormListClientComponent implements OnInit {
   public getInfoNumeric() {
     this.listAge = [];
     this.service.getListClients().subscribe(data => {
-     data.forEach((element: any) => {
+     data.forEach(async (element: any) => {
       console.log(element.payload.doc.data());
       const data = element.payload.doc.data()
       this.listAge.push(data.edad)
       console.log('list age', this.listAge)
+      await this.ngxService.stop();
      })
     })
   }
