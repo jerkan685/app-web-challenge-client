@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { element } from 'protractor';
 import { Cliente } from '../../models/cliente';
 import { ClientRestControllerService } from '../../services/client-rest-controller.service';
+import { Utils } from '../../shared/utils/utils';
 
 @Component({
   selector: 'app-form-list-client',
@@ -70,7 +71,7 @@ export class FormListClientComponent implements OnInit {
   public getPromedio() {
     console.log(this.listAge)
     if(this.listAge.length > 0) {
-     const promedio = this.getAvg(this.listAge);
+     const promedio = Utils.getAvg(this.listAge);
     console.log(promedio)
     return promedio;
     }else {
@@ -81,33 +82,13 @@ export class FormListClientComponent implements OnInit {
   }
 
   public showDesvest() {
-    const desvet = this.getDesvest(this.listAge);
-    return desvet;
-  }
-
-  private getAvg(list: number[]) {
-    const sum = list.reduce((previous, current) => current += previous, 0);
-    return (sum / list.length);
-  }
-
-  private getDesvest(arr: number[]) {
-
-  if(this.listAge.length > 0) {
-    let mean = arr.reduce((acc, curr)=>{
-      return acc + curr
-    }, 0) / arr.length;
-     
-    arr = arr.map((k)=>{
-      return (k - mean) ** 2
-    })
-     
-   let sum = arr.reduce((acc, curr)=> acc + curr, 0);
-   // Returning the Standered deviation
-   return Math.sqrt(sum / arr.length)
-  } else {
-    return "";
-  }
-  
+    if(this.listAge.length > 0) {
+      const desvet = Utils.getDesvest(this.listAge);
+      return desvet;
+    } else {
+      return "";
+    }
+    
   }
 
 }

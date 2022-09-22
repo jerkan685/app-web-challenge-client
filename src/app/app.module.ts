@@ -10,13 +10,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { enviroment} from './core/configuration/enviroment';
 import {AngularFirestoreModule} from '@angular/fire/firestore'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AnalisysClientLisComponent } from './core/components/analisys-client-lis/analisys-client-lis.component'
 @NgModule({
   declarations: [
     AppComponent,
     FormListClientComponent,
     SideBarMenuComponent,
-    FormListClientComponent
+    FormListClientComponent,
+    AnalisysClientLisComponent
   ],
   imports: [
     BrowserModule,
