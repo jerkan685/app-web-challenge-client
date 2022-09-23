@@ -17,7 +17,7 @@ export class Utils {
           })
            
          let sum = arr.reduce((acc, curr)=> acc + curr, 0);
-         // Returning the Standered deviation
+         // Retorna la desviacion estandar
          return Math.sqrt(sum / arr.length)
         }
 
