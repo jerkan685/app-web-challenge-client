@@ -21,9 +21,11 @@ export class Utils {
          return Math.sqrt(sum / arr.length)
         }
 
-        public static dateDeathProbabl(birthdate: any, Avg: number) {
-          const dateDeath = new Date(birthdate * 1000);
-          dateDeath.setFullYear(dateDeath.getFullYear() + Avg)
+        public static dateDeathProbabl(ageClient: number) {
+          const lifeExpentancyArgentina = 76.8;
+          const yearofLiveProbably = lifeExpentancyArgentina - ageClient;
+          const dateDeath = new Date();
+          dateDeath.setFullYear(dateDeath.getFullYear() + yearofLiveProbably)
           return dateDeath.toLocaleDateString('en-US'); 
 
         }

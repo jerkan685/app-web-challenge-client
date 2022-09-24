@@ -42,10 +42,9 @@ export class AnalisysClientLisComponent implements OnInit {
     return new Date(date.seconds * 1000).toLocaleDateString('en-US');
   }
 
-  public showDateDeath({seconds: birthdate}) {
+  public showDateDeath(ageClient) {
     if(this.listAge.length > 0) {
-      const avg = Utils.getAvg(this.listAge);
-      const dateDeath = Utils.dateDeathProbabl(birthdate, avg)
+      const dateDeath = Utils.dateDeathProbabl(ageClient)
       return dateDeath;
     } else {
       return ""
